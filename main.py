@@ -162,10 +162,65 @@ class MDP(object):
 
         return curr_best
 
+    def __str__(self):
+        """String representation of all calculated optimal policy iterations
+
+        See Also
+        --------
+        optimal_policy_strs
+        """
+
+        return self.optimal_policy_strs(len(self.optimal_policies))
+
+    def optimal_policy_strs(self, end: int):
+        """Get the states' optimal policy from interation 1 to given end point
+
+        Parameters
+        ----------
+        end: int
+            The last iteration to get. If the value is greater than the number
+            of stored iterations, then the last calculated policy iterations
+            are used instead.
+
+        Returns
+        -------
+        str_iterations: str
+            Single string that shows all the states' optimal policies from
+            iteration 1 to the given end point. Iteration instances are on
+            their own line.
+        """
+
+        return '\n'.join([self._optimal_policy_str(i) for i in
+                          range(min(end, len(self.optimal_policies)))])
+
+    def _optimal_policy_str(self, iteration: int):
+        """Get the states' optimal policy at the given iteration point
+
+        Parameters
+        ----------
+        iteration: int
+            The iteration point to retrieve the states' optimal policy
+            information
+
+        Returns
+        -------
+        interation_str: str
+            String representation of the states' optimal policy at the given
+            iteration point.
+        """
+
+        iteration_str = "After iteration " + str(iteration+1) + ":"
+        for state, state_results in self.optimal_policies[iteration].items():
+            iteration_str += ' (' + state + ' ' + \
+                     str(state_results["action"]) + ' ' + \
+                     format(state_results["j_val"], ".4f") + ')'
+        return iteration_str
+
 
 def main():
     mdp = MDP(0.9, "test.in")
     mdp.find_optimal_policies()
+    print(str(mdp))
 
 
 if __name__ == "__main__":
