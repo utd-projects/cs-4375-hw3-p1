@@ -1,3 +1,59 @@
+'''
+File: main.py - Markov Decision Process solver
+Authors: Hrishikesh Inamdar and Pratik Bhusal
+Description:
+This program implements a Markov Decision Process solver. The program requires 2 command-line arguments in the following order:
+    python3 main.py <TRAINING DATA FILE> <DISCOUNT FACTOR>
+Components:
+    class MDP:
+		Markov decision process implementation.
+
+		Attributes
+		----------
+		discount: float
+			The discount factor for moving to another state.
+		states: dict of MDP.state
+			The states in the MDP.
+		
+		Methods
+		-------
+		__init__(discount: float, input_file_name: str = None)
+			MDP initializer
+
+		parse_file(input_file_name)
+			Parse file to initialize the MDP's states.
+		
+		find_optimal_policies(iterations: int = 20)
+			Find the optimal policies up to the requested number of iterations.
+		
+		__str__()
+			String representation of all calculated optimal policy iterations.
+			returns exactly same as function below:
+		
+		optimal_policy_strs(end: int)
+			Get the states' optimal policy from iteration 1 to given end point.
+			returns a string encoding the optimal policy
+	
+		See Also
+		--------
+		MDP.state
+
+	class state:
+		State instance found in Markov Decision Process.
+
+        Attributes
+        ----------
+        reward: int or float
+            The reward associated for going to this specific state.
+        actions: dict of dict of float
+            The actions the state and take and their corresponding
+            probabilities for happening.
+
+            Usage:
+                self.actions[action] = name of states that it can go to.
+                self.actions[action][to_state] = chance of going to to_state.
+	
+'''
 import sys
 
 
@@ -14,11 +70,22 @@ class MDP(object):
     Methods
     -------
     __init__(discount: float, input_file_name: str = None)
-        MDP initializer
+			MDP initializer
 
-    parse_file(input_file_name)
-        Parse file to initilize the MDP's states.
-
+	parse_file(input_file_name)
+		Parse file to initialize the MDP's states.
+	
+	find_optimal_policies(iterations: int = 20)
+		Find the optimal policies up to the requested number of iterations.
+	
+	__str__()
+		String representation of all calculated optimal policy iterations.
+		returns exactly same as function below:
+	
+	optimal_policy_strs(end: int)
+		Get the states' optimal policy from iteration 1 to given end point.
+		returns a string encoding the optimal policy
+			
     See Also
     --------
     MDP.state
@@ -35,7 +102,7 @@ class MDP(object):
             The actions the state and take and their corresponding
             probabilities for happening.
 
-            Useage:
+            Usage:
                 self.actions[action] = name of states that it can go to.
                 self.actions[action][to_state] = chance of going to to_state.
         """
@@ -88,7 +155,7 @@ class MDP(object):
                 self.states[state].reward
 
     def parse_file(self, input_file_name):
-        """Parse file to initilize the MDP's states.
+        """Parse file to initialize the MDP's states.
 
         A single valid state information line has the following:
 
@@ -173,7 +240,7 @@ class MDP(object):
         return self.optimal_policy_strs(len(self.optimal_policies))
 
     def optimal_policy_strs(self, end: int):
-        """Get the states' optimal policy from interation 1 to given end point
+        """Get the states' optimal policy from iteration 1 to given end point
 
         Parameters
         ----------
