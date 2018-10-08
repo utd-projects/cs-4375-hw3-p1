@@ -63,7 +63,7 @@ class MDP(object):
 
         Parameters
         ----------
-        discount: float
+        discount: float or str
             The discount factor for moving to another state.
         input_file_name: str, optional
             The name of the input file that holds the the MDP's state
@@ -74,7 +74,16 @@ class MDP(object):
         parse_file
         """
 
-        self.discount = discount
+        try:
+            self.discount = float(discount) if isinstance(discount, str) else \
+                            discount
+            if self.discount < 0 or self.discount > 1:
+                raise ValueError(' '.join([
+                    "Discount factor must be floating point number within",
+                    "the interval [0, 1]"]))
+        except ValueError as e:
+            print(e)
+            sys.exit(1)
         self.states = dict()
         if input_file_name:
             self.parse_file(input_file_name)
@@ -219,14 +228,12 @@ class MDP(object):
 
 def main():
     if(len(sys.argv) != 3):
-        print('Please enter exactly two arguments: <input_file> <discount_factor>')
+        print("Please enter exactly two arguments:",
+              "<input_file>",
+              "<discount_factor>")
         sys.exit(1)
-    disc_fact = float(sys.argv[2])	# discount factor used in calculations. grabbed from command line
-    if(disc_fact < 0 or disc_fact > 1):
-        print('That is not a valid discount factor!')
-        sys.exit(1)
-    
-    mdp = MDP(disc_fact, sys.argv[1])
+
+    mdp = MDP(sys.argv[2], sys.argv[1])
     mdp.find_optimal_policies()
     print(str(mdp))
 
