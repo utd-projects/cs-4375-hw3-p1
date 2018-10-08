@@ -218,10 +218,14 @@ class MDP(object):
 
 
 def main():
+    if(len(sys.argv) != 3):
+        print('Please enter exactly two arguments: <input_file> <discount_factor>')
+        exit()
     disc_fact = float(sys.argv[2])	# discount factor used in calculations. grabbed from command line
     if(disc_fact < 0 or disc_fact > 1):
         print('That is not a valid discount factor!')
         exit()
+    
     mdp = MDP(disc_fact, sys.argv[1])
     mdp.find_optimal_policies()
     print(str(mdp))
