@@ -1,45 +1,48 @@
 '''
-File: main.py - Markov Decision Process solver
-Authors: Hrishikesh Inamdar and Pratik Bhusal
+File: main.py - Markov Decision Process Solver
+Authors: Pratik Bhusal and Hrishikesh Inamdar
 Description:
-This program implements a Markov Decision Process solver. The program requires 2 command-line arguments in the following order:
+This program implements a Markov Decision Process solver. The program requires
+2 command-line arguments in the following order:
+
     python3 main.py <TRAINING DATA FILE> <DISCOUNT FACTOR>
+
 Components:
     class MDP:
-		Markov decision process implementation.
+        Markov decision process implementation.
 
-		Attributes
-		----------
-		discount: float
-			The discount factor for moving to another state.
-		states: dict of MDP.state
-			The states in the MDP.
-		
-		Methods
-		-------
-		__init__(discount: float, input_file_name: str = None)
-			MDP initializer
+        Attributes
+        ----------
+        discount: float
+            The discount factor for moving to another state.
+        states: dict of MDP.state
+            The states in the MDP.
 
-		parse_file(input_file_name)
-			Parse file to initialize the MDP's states.
-		
-		find_optimal_policies(iterations: int = 20)
-			Find the optimal policies up to the requested number of iterations.
-		
-		__str__()
-			String representation of all calculated optimal policy iterations.
-			returns exactly same as function below:
-		
-		optimal_policy_strs(end: int)
-			Get the states' optimal policy from iteration 1 to given end point.
-			returns a string encoding the optimal policy
-	
-		See Also
-		--------
-		MDP.state
+        Methods
+        -------
+        __init__(discount: float, input_file_name: str = None)
+            MDP initializer
 
-	class state:
-		State instance found in Markov Decision Process.
+        parse_file(input_file_name)
+            Parse file to initialize the MDP's states.
+
+        find_optimal_policies(iterations: int = 20)
+            Find the optimal policies up to the requested number of iterations.
+
+        __str__()
+            String representation of all calculated optimal policy iterations.
+            returns exactly same as function below:
+
+        optimal_policy_strs(end: int)
+            Get the states' optimal policy from iteration 1 to given end point.
+            returns a string encoding the optimal policy
+
+        See Also
+        --------
+        MDP.state
+
+    class state:
+        State instance found in Markov Decision Process.
 
         Attributes
         ----------
@@ -52,7 +55,7 @@ Components:
             Usage:
                 self.actions[action] = name of states that it can go to.
                 self.actions[action][to_state] = chance of going to to_state.
-	
+
 '''
 import sys
 
@@ -70,22 +73,22 @@ class MDP(object):
     Methods
     -------
     __init__(discount: float, input_file_name: str = None)
-			MDP initializer
+            MDP initializer
 
-	parse_file(input_file_name)
-		Parse file to initialize the MDP's states.
-	
-	find_optimal_policies(iterations: int = 20)
-		Find the optimal policies up to the requested number of iterations.
-	
-	__str__()
-		String representation of all calculated optimal policy iterations.
-		returns exactly same as function below:
-	
-	optimal_policy_strs(end: int)
-		Get the states' optimal policy from iteration 1 to given end point.
-		returns a string encoding the optimal policy
-			
+    parse_file(input_file_name)
+        Parse file to initialize the MDP's states.
+
+    find_optimal_policies(iterations: int = 20)
+        Find the optimal policies up to the requested number of iterations.
+
+    __str__()
+        String representation of all calculated optimal policy iterations.
+        returns exactly same as function below:
+
+    optimal_policy_strs(end: int)
+        Get the states' optimal policy from iteration 1 to given end point.
+        returns a string encoding the optimal policy
+
     See Also
     --------
     MDP.state
